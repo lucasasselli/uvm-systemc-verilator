@@ -64,16 +64,11 @@ RUN curl https://www.accellera.org/images/downloads/drafts-review/uvm-systemc-10
  && make install
 
 WORKDIR /opt/download
-RUN git clone https://github.com/verilator/verilator \
+RUN git clone -b v5.006 https://github.com/verilator/verilator \
  && cd verilator \
  && autoconf \
  && ./configure --prefix=/opt/verilator \
  && make \
  && make install
-
-RUN apt-get update -q && apt-get install -qy --no-install-recommends \
-    g++-10 \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /opt/download
