@@ -17,7 +17,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build the hello-docker Docker image
+      - name: Build Docker image
         run: |
          docker build . --tag ghcr.io/lucasasselli/uvm-systemc-verilator:latest
          docker run ghcr.io/lucasasselli/uvm-systemc-verilator:latest

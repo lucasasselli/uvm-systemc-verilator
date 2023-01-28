@@ -24,22 +24,13 @@ ENV CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/uvm-systemc/include
 ENV LIBRARY_PATH=$LIBRARY_PATH:/opt/uvm-systemc/lib-linux64
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/uvm-systemc/lib-linux64
 
-FROM base AS install
+FROM base AS build
 
 RUN apt-get update -q && apt-get install -qy --no-install-recommends \
     autoconf flex bison libfl2 libfl-dev \
     help2man \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /opt/download
-RUN git clone https://github.com/riscv-software-src/riscv-isa-sim \
- && cd riscv-isa-sim \
- && mkdir build\
- && cd build \
- && ../configure --prefix=/opt/spike --enable-commitlog \
- && make \
- && make install
 
 ENV CXXFLAGS='-std=c++14'
 
@@ -73,3 +64,7 @@ RUN git clone -b v5.006 https://github.com/verilator/verilator \
  && make install
 
 RUN rm -rf /opt/download
+
+FROM base AS install
+
+COPY --from=install /opt /opt
