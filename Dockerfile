@@ -51,7 +51,7 @@ RUN curl https://www.accellera.org/images/downloads/standards/systemc/systemc-2.
     -DINSTALL_TO_LIB_TARGET_ARCH_DIR=ON \
     -DCMAKE_CXX_STANDARD=14 \
     .. \
- && make -j$(nproc) \
+ && make \
  && make install
 
 WORKDIR /opt/download
@@ -68,7 +68,7 @@ RUN git clone https://github.com/verilator/verilator \
  && cd verilator \
  && autoconf \
  && ./configure --prefix=/opt/verilator \
- && make -j$(nproc) \
+ && make \
  && make install
 
 RUN apt-get update -q && apt-get install -qy --no-install-recommends \
