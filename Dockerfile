@@ -68,3 +68,4 @@ RUN rm -rf /opt/download
 FROM base AS install
 
 COPY --from=build /opt /opt
+ENV PATH=$PATH:/opt/verilator/bin
