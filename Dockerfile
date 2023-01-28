@@ -28,6 +28,7 @@ FROM base AS install
 
 RUN apt-get update -q && apt-get install -qy --no-install-recommends \
     autoconf flex bison libfl2 libfl-dev \
+    help2man \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -60,7 +61,7 @@ RUN curl https://www.accellera.org/images/downloads/drafts-review/uvm-systemc-10
  && mkdir objdir \
  && cd objdir \
  && ../configure --prefix=/opt/uvm-systemc --with-systemc=/opt/systemc \
- && make -j$(nproc) \
+ && make \
  && make install
 
 WORKDIR /opt/download
